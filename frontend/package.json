@@ -1,0 +1,43 @@
+{
+  "name": "pen-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.7.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@univerjs/preset-sheets-core": "^0.25.0",
+    "@univerjs/presets": "^0.25.0",
+    "@univerjs/core": "^0.25.0",
+    "@univerjs/engine-formula": "^0.25.0",
+    "@univerjs/preset-sheets-thread-comment": "^0.25.0",
+    "@univerjs/sheets-formula": "^0.25.0",
+    "@univerjs/sheets-thread-comment": "^0.25.0",
+    "@univerjs/sheets-thread-comment-ui": "^0.25.0",
+    "@univerjs/thread-comment": "^0.25.0",
+    "@univerjs/thread-comment-ui": "^0.25.0",
+    "axios": "^1.6.2",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^1.14.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.20.0",
+    "recharts": "^3.8.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0"
+  }
+}
