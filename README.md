@@ -103,6 +103,9 @@
 
 ## Скриншоты
 
+<details>
+<summary>Развернуть галерею — 11 изображений</summary>
+
 | | |
 |---|---|
 | ![Авторизация](screenshots/pw_01_login.png) | ![Датасеты](screenshots/pw_02_datasets.png) |
@@ -117,6 +120,8 @@
 | *Swagger-документация* | *Мониторинг (Grafana)* |
 | ![Prometheus](screenshots/pw_14_prometheus.png) | |
 | *Мониторинг (Prometheus)* | |
+
+</details>
 
 ## Быстрый старт
 
