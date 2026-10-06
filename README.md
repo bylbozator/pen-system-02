@@ -1,6 +1,41 @@
+<div align="center">
+
 # ПЭН — Система учёта и контроля поставок МТР
 
-**ПЭН (Производственно-Эксплуатационные Нужды)** — корпоративная система для планирования, согласования и контроля поставок материально-технических ресурсов (МТР). Обеспечивает работу с электронными таблицами (план/факт), разграничение доступа, аудит действий, импорт/экспорт Excel и парсинг PDF.
+**ПЭН (Производственно-Эксплуатационные Нужды)** — корпоративная система для планирования,
+согласования и контроля поставок материально-технических ресурсов:
+электронные таблицы план/факт, разграничение доступа, аудит, импорт/экспорт Excel и парсинг PDF.
+
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker%20Compose-ready-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![Univer](https://img.shields.io/badge/Univer.js-spreadsheet-4E78FA?logo=univer&logoColor=white)](https://univer.ai/)
+
+[Возможности](#-возможности) ·
+[Скриншоты](#-скриншоты) ·
+[Быстрый старт](#-быстрый-старт) ·
+[API](#-api) ·
+[Разработка](#-разработка)
+
+<img src="screenshots/collage.png" alt="ПЭН — обзор интерфейса" width="85%">
+
+</div>
+
+---
+
+## Содержание
+
+- [Стек технологий](#стек-технологий)
+- [Возможности](#-возможности)
+- [Скриншоты](#-скриншоты)
+- [Быстрый старт](#-быстрый-старт)
+- [Структура проекта](#структура-проекта)
+- [Переменные окружения](#переменные-окружения-env)
+- [API](#-api)
+- [Разработка](#-разработка)
 
 ## Стек технологий
 
@@ -14,20 +49,7 @@
 | Прокси | Nginx (HTTP/HTTPS, WebSocket) |
 | Инфраструктура | Docker Compose |
 
-## Быстрый старт
-
-```bash
-docker-compose up -d
-```
-
-- **Фронтенд**: http://localhost
-- **API (Swagger)**: http://localhost:8000/docs
-- **Grafana**: http://localhost:3000 (логин: admin, пароль из `GRAFANA_PASSWORD` в `.env`)
-- **Prometheus**: http://localhost:9090
-
-Учётная запись по умолчанию: **логин:** `admin`, **пароль:** `admin` (если не изменён в `.env`).
-
-## Функциональные возможности
+## 🚀 Возможности
 
 ### 📊 Табличный редактор
 - Полноценный онлайн-редактор на базе Univer.js
@@ -79,51 +101,67 @@ docker-compose up -d
 - Prometheus-метрики по адресу `/metrics`
 - Дашборд Grafana с панелями: RPS, память, CPU, файловые дескрипторы, GC Python
 
-## Скриншоты
+## 🖼 Скриншоты
 
-### Авторизация
+| | |
+|---|---|
+| ![Авторизация](screenshots/pw_01_login.png) | ![Датасеты](screenshots/pw_02_datasets.png) |
+| *Авторизация* | *Датасеты* |
+| ![Редактор таблиц](screenshots/pw_03_editor.png) | ![Моя активность](screenshots/pw_04_my_activity.png) |
+| *Редактор таблиц* | *Моя активность* |
+| ![Администрирование](screenshots/pw_06_admin.png) | ![Управление ролями](screenshots/pw_08_admin_roles.png) |
+| *Администрирование* | *Управление ролями* |
+| ![Датасеты в админке](screenshots/pw_09_admin_datasets.png) | ![Аудит](screenshots/pw_10_admin_audit.png) |
+| *Датасеты в админке* | *Аудит* |
+| ![Swagger](screenshots/pw_12_swagger.png) | ![Grafana](screenshots/pw_13_grafana.png) |
+| *Swagger-документация* | *Мониторинг (Grafana)* |
+| ![Prometheus](screenshots/pw_14_prometheus.png) | |
+| *Мониторинг (Prometheus)* | |
 
-![Авторизация](screenshots/pw_01_login.png)
+## ⚡ Быстрый старт
 
-### Датасеты
+```bash
+git clone https://github.com/bylbozator/pen-system-02.git
+cd pen-system-02
+cp .env.example .env   # задайте SECRET_KEY, пароли БД/Redis и ADMIN_PASSWORD
+docker-compose up -d
+```
 
-![Датасеты](screenshots/pw_02_datasets.png)
+| Сервис | Адрес |
+|---|---|
+| Фронтенд | http://localhost |
+| API (Swagger) | http://localhost:8000/docs |
+| Grafana | http://localhost:3000 |
+| Prometheus | http://localhost:9090 |
 
-### Редактор таблиц
+> [!NOTE]
+> Учётная запись по умолчанию задаётся переменными `ADMIN_USERNAME` / `ADMIN_PASSWORD`
+> в `.env` (см. [.env.example](.env.example)). Не используйте значения по умолчанию вне локальной разработки.
 
-![Редактор таблиц](screenshots/%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%BE%D1%80%20%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86.png)
+## Структура проекта
 
-### Моя активность
-
-![Моя активность](screenshots/pw_04_my_activity.png)
-
-### Администрирование
-
-![Администрирование](screenshots/pw_06_admin.png)
-
-### Управление ролями
-
-![Управление ролями](screenshots/pw_08_admin_roles.png)
-
-### Датасеты в админке
-
-![Датасеты в админке](screenshots/pw_09_admin_datasets.png)
-
-### Аудит
-
-![Аудит](screenshots/pw_10_admin_audit.png)
-
-### Swagger-документация
-
-![Swagger](screenshots/pw_12_swagger.png)
-
-### Мониторинг (Grafana)
-
-![Grafana](screenshots/pw_13_grafana.png)
-
-### Мониторинг (Prometheus)
-
-![Prometheus](screenshots/pw_14_prometheus.png)
+```
+pen-system-02/
+├── backend/                  # FastAPI + SQLAlchemy + Celery
+│   ├── app/
+│   │   ├── routers/          # REST-эндпоинты (auth, datasets, rows, admin, …)
+│   │   ├── services/         # импорт/экспорт Excel, парсинг PDF, валидация
+│   │   ├── tasks/            # фоновые задачи Celery
+│   │   ├── middleware/       # аудит действий, CSRF-защита
+│   │   └── migrations/       # Alembic-миграции
+│   └── Dockerfile
+├── frontend/                 # React 18 + TypeScript + Vite + Tailwind
+│   └── src/
+│       ├── components/       # страницы и UI-компоненты
+│       ├── hooks/            # переиспользуемые хуки
+│       ├── contexts/         # AuthContext
+│       └── utils/            # работа с формулами, комментариями, аудитом
+├── prometheus/               # конфигурация Prometheus
+├── grafana/provisioning/     # дашборды и датасource «из коробки»
+├── screenshots/              # скриншоты интерфейса
+├── docker-compose.yml        # оркестрация всех сервисов
+└── .env.example              # шаблон переменных окружения
+```
 
 ## Переменные окружения (.env)
 
@@ -136,7 +174,7 @@ docker-compose up -d
 | `REDIS_PASSWORD` | Пароль Redis | — |
 | `GRAFANA_PASSWORD` | Пароль администратора Grafana | admin |
 
-## API
+## 🔌 API
 
 Swagger-документация автоматически генерируется FastAPI:
 
@@ -157,7 +195,7 @@ Swagger-документация автоматически генерирует
 | GET | `/api/admin/audit` | Лог аудита (admin) |
 | GET | `/metrics` | Prometheus-метрики |
 
-## Разработка
+## 🛠 Разработка
 
 ### Запуск без Docker
 
