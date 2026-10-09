@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    RATE_LIMIT_LOGIN: str = "5/minute"
     DEBUG: bool = False
     ADMIN_USERNAME: str = "admin"
     ADMIN_PASSWORD: str

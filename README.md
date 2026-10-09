@@ -13,6 +13,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker%20Compose-ready-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 [![Univer](https://img.shields.io/badge/Univer.js-spreadsheet-4E78FA?logo=univer&logoColor=white)](https://univer.ai/)
+[![E2E](https://github.com/bylbozator/pen-system-02/actions/workflows/e2e.yml/badge.svg)](https://github.com/bylbozator/pen-system-02/actions/workflows/e2e.yml)
 
 [Возможности](#возможности) ·
 [Скриншоты](#скриншоты) ·
@@ -128,7 +129,15 @@
 ```bash
 git clone https://github.com/bylbozator/pen-system-02.git
 cd pen-system-02
-cp .env.example .env   # задайте SECRET_KEY, пароли БД/Redis и ADMIN_PASSWORD
+cp .env.example .env          # задайте SECRET_KEY, пароли БД/Redis и ADMIN_PASSWORD
+
+# Сборка фронтенда (nginx-образ отдаёт готовый dist)
+cd frontend
+corepack enable pnpm
+pnpm install
+pnpm build
+cd ..
+
 docker-compose up -d
 ```
 
@@ -152,18 +161,21 @@ pen-system-02/
 │   │   ├── routers/          # REST-эндпоинты (auth, datasets, rows, admin, …)
 │   │   ├── services/         # импорт/экспорт Excel, парсинг PDF, валидация
 │   │   ├── tasks/            # фоновые задачи Celery
-│   │   ├── middleware/       # аудит действий, CSRF-защита
-│   │   └── migrations/       # Alembic-миграции
+│   │   └── middleware/       # аудит действий, CSRF-защита
+│   ├── migrations/           # Alembic-миграции
 │   └── Dockerfile
 ├── frontend/                 # React 18 + TypeScript + Vite + Tailwind
-│   └── src/
-│       ├── components/       # страницы и UI-компоненты
-│       ├── hooks/            # переиспользуемые хуки
-│       ├── contexts/         # AuthContext
-│       └── utils/            # работа с формулами, комментариями, аудитом
+│   ├── src/
+│   │   ├── components/       # страницы и UI-компоненты
+│   │   ├── hooks/            # переиспользуемые хуки
+│   │   ├── contexts/         # AuthContext
+│   │   └── utils/            # работа с формулами, комментариями, аудитом
+│   ├── e2e/                  # E2E-тесты Playwright
+│   └── playwright.config.ts
 ├── prometheus/               # конфигурация Prometheus
-├── grafana/provisioning/     # дашборды и датасource «из коробки»
+├── grafana/provisioning/     # дашборды и datasource «из коробки»
 ├── screenshots/              # скриншоты интерфейса
+├── .github/workflows/        # CI (E2E)
 ├── docker-compose.yml        # оркестрация всех сервисов
 └── .env.example              # шаблон переменных окружения
 ```
@@ -225,8 +237,20 @@ alembic upgrade head
 ```
 
 ### Тесты
+
+E2E-тесты на Playwright (chromium) проверяют аутентификацию (успешный и неуспешный вход),
+защиту приватных маршрутов и загрузку списка таблиц. Запускаются автоматически в CI
+(workflow [`.github/workflows/e2e.yml`](.github/workflows/e2e.yml)) при пуше и в pull request.
+
+Требуется запущенный стек на http://localhost:8080 (`docker-compose up -d`):
+
 ```bash
-# E2E (Playwright)
 cd frontend
-pnpm exec playwright test
+pnpm install
+pnpm exec playwright install chromium
+
+# логин/пароль должны совпадать с ADMIN_USERNAME / ADMIN_PASSWORD в .env
+E2E_ADMIN_USERNAME=admin E2E_ADMIN_PASSWORD=admin pnpm test:e2e
 ```
+
+HTML-отчёт сохраняется в `frontend/playwright-report`, интерактивный режим — `pnpm test:e2e:ui`.

@@ -26,7 +26,7 @@ class PasswordChange(BaseModel):
 
 
 @router.post("/login", response_model=LoginResponse)
-@limiter.limit("5/minute")
+@limiter.limit(settings.RATE_LIMIT_LOGIN)
 def login(
     request: Request,
     login_data: schemas.LoginRequest,
