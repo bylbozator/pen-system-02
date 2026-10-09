@@ -10,6 +10,10 @@ dist/
 build/
 *.egg
 
+# pytest (backend)
+backend/test_pen_test.db
+backend/.pytest_cache/
+
 # Node
 node_modules/
 .pnpm-store/

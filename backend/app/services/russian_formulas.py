@@ -166,7 +166,7 @@ RU_TO_ENG = {
 }
 
 _REPLACE_PATTERN = re.compile(
-    r"(?:^|(?<=[=,(+\-*/^<>&|\s]))(" + "|".join(
+    r"(?:^|(?<=[=,(+\-*/^<>&|;\s]))(" + "|".join(
         re.escape(ru) for ru in sorted(RU_TO_ENG, key=len, reverse=True)
     ) + r")(?=\s*\()",
 )

@@ -105,3 +105,38 @@ jobs:
           name: playwright-report
           path: frontend/playwright-report
           retention-days: 7
+
+  backend-tests:
+    name: Backend pytest
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install libmagic (for python-magic)
+        run: sudo apt-get update && sudo apt-get install -y libmagic1
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt', 'backend/requirements-dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Run pytest
+        run: python -m pytest -q
